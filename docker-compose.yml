@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: sample-db
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - sample-db:/var/lib/postgresql/data
+
+volumes:
+  sample-db:

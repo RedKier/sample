@@ -17,14 +17,14 @@ export const configValidation = (config: Config) => {
 
 const printError = (error: ValidationError) => {
   if (error.constraints) {
-    for(const errorMsg of Object.values(error.constraints)) {
+    for (const errorMsg of Object.values(error.constraints)) {
       console.error(` - ${errorMsg}`);
     }
   }
 
   if (error.children.length > 0) {
-    for(const childError of error.children) {
+    for (const childError of error.children) {
       printError(childError);
     }
   }
-}
+};
