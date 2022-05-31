@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { Options } from '@mikro-orm/core';
-import { CONFIG } from '@config';
+import { CONFIG } from './config';
 
 const config: Options = {
   type: 'postgresql',

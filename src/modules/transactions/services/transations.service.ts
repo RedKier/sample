@@ -9,4 +9,12 @@ export class TransactionsService {
     @InjectRepository(TransactionEntity)
     private readonly transactionRepository: EntityRepository<TransactionEntity>,
   ) {}
+
+  async createTransaction() {}
+
+  async updateTransaction(id: string) {}
+
+  async getTransactionById(id: string) {}
+
+  async deleteTransaction(id: string) {}
 }

@@ -17,10 +17,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@config": ["./src/config"],
-      "@common/*": ["./src/common/*"],
-      "@modules/*": ["./src/modules/*"]
-    }
   }
 }

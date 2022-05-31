@@ -1,5 +1,5 @@
 import { ValidationError, validateSync } from 'class-validator';
-import { Config } from '@config';
+import { Config } from '.';
 
 export const configValidation = (config: Config) => {
   const errors = validateSync(config);

@@ -1,1 +1,1 @@
-## Sample of code I'm capable of creting.
+## Sample of code

@@ -1,5 +1,5 @@
 import { Entity, Property } from '@mikro-orm/core';
-import { BaseEntity } from '@modules/common/entities/base.entity';
+import { BaseEntity } from 'src/modules/common/entities/base.entity';
 
 @Entity({ tableName: 'transactions' })
 export class TransactionEntity extends BaseEntity {
