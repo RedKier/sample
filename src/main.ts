@@ -30,7 +30,6 @@ async function bootstrap(): Promise<NestExpressApplication> {
     }),
   );
 
-
   await app.listen(CONFIG.APP.PORT);
 
   return app;
