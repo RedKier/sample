@@ -1,6 +1,6 @@
 import { Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { TransformInterceptor } from 'src/modules/common/interceptors/transform.interceptor';
+import { TransformInterceptor } from '../../../modules/common/interceptors/transform.interceptor';
 import { TransactionDTO } from '../dtos/transaction.dto';
 import { TransactionsService } from '../services/transations.service';
 

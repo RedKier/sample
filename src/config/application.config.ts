@@ -1,6 +1,6 @@
 import { IsIn, Min, Max } from 'class-validator';
 
-const envTypes = ['development', 'production'] as const;
+const envTypes = ['development', 'production', 'test'] as const;
 type EnvType = typeof envTypes[number];
 
 export class ApplicationConfig {

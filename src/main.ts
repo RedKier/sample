@@ -21,7 +21,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
     SwaggerModule.setup('docs', app, document);
   }
 
-  
+  app.disable('x-powered-by');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
