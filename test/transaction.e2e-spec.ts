@@ -2,6 +2,8 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import { bootstrap } from '../src/main';
+import { createTransaction } from './test-utils/transactions.utils';
+import { TransactionEntity } from '../src/modules/transactions/entities/transaction.entity';
 
 describe('TransactionsController (e2e)', () => {
   let app: INestApplication;
@@ -15,7 +17,7 @@ describe('TransactionsController (e2e)', () => {
     await app.close();
   });
 
-  describe.only('TransactionsController (e2e) / POST', () => {
+  describe('TransactionsController (e2e) / POST', () => {
     it('Should return 201 and create transaction', async () => {
       const data = {
         amount: faker.datatype.number(),
@@ -74,30 +76,88 @@ describe('TransactionsController (e2e)', () => {
   });
 
   describe('TransactionsController (e2e) /:id GET', () => {
-    it('/ (GET)', () => {
+    const data = {
+      amount: faker.datatype.number(),
+      price: faker.datatype.number(),
+      symbol: faker.random.alpha(3),
+    };
+    let transaction: TransactionEntity;
+
+    beforeEach(async () => {
+      transaction = await createTransaction(app, data);
+    });
+
+    it('Should return 200 and transaction data', () => {
       return request(app.getHttpServer())
-        .get('/transactions/5')
+        .get(`/transactions/${transaction.uuid}`)
         .expect(200)
-        .expect('Hello World!');
+        .expect(({ body }) => {
+          expect(body.uuid).toEqual(transaction.uuid);
+          expect(body.createdAt).toBeDefined();
+          expect(body.amount).toEqual(data.amount);
+          expect(body.price).toEqual(data.price);
+          expect(body.symbol).toEqual(data.symbol);
+        });
+    });
+
+    it('Should return 404 when wrong id provided', () => {
+      return request(app.getHttpServer()).get('/transactions/5').expect(404);
     });
   });
 
   describe('TransactionsController (e2e) /:id PATCH', () => {
-    it('/ (GET)', () => {
+    const data = {
+      amount: faker.datatype.number(),
+      price: faker.datatype.number(),
+      symbol: faker.random.alpha(3),
+    };
+    let transaction: TransactionEntity;
+    beforeEach(async () => {
+      transaction = await createTransaction(app, data);
+    });
+
+    it('Should return 200 and update entity', () => {
+      const editData = {
+        amount: faker.datatype.number(),
+        price: faker.datatype.number(),
+      };
       return request(app.getHttpServer())
-        .patch('/transactions/5')
-        .send({})
+        .patch(`/transactions/${transaction.uuid}`)
+        .send(editData)
         .expect(200)
-        .expect('Hello World!');
+        .expect(({ body }) => {
+          expect(body.uuid).toEqual(transaction.uuid);
+          expect(body.createdAt).toBeDefined();
+          expect(body.amount).toEqual(editData.amount);
+          expect(body.price).toEqual(editData.price);
+          expect(body.symbol).toEqual(data.symbol);
+        });
+    });
+
+    it('Should return 404 when wrong id provided', () => {
+      return request(app.getHttpServer()).patch('/transactions/5').expect(404);
     });
   });
 
   describe('TransactionsController (e2e) /:id DELETE', () => {
+    const data = {
+      amount: faker.datatype.number(),
+      price: faker.datatype.number(),
+      symbol: faker.random.alpha(3),
+    };
+    let transaction: TransactionEntity;
+    beforeEach(async () => {
+      transaction = await createTransaction(app, data);
+    });
+
     it('/ (GET)', () => {
       return request(app.getHttpServer())
-        .delete('/transactions/5')
-        .expect(204)
-        .expect('Hello World!');
+        .delete(`/transactions/${transaction.uuid}`)
+        .expect(204);
+    });
+
+    it('Should return 404 when wrong id provided', () => {
+      return request(app.getHttpServer()).delete('/transactions/5').expect(404);
     });
   });
 });
