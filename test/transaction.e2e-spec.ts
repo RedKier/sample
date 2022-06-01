@@ -15,15 +15,6 @@ describe('TransactionsController (e2e)', () => {
     await app.close();
   });
 
-  describe('TransactionsController (e2e) /:id GET', () => {
-    it('/ (GET)', () => {
-      return request(app.getHttpServer())
-        .get('/transactions/5')
-        .expect(200)
-        .expect('Hello World!');
-    });
-  });
-
   describe.only('TransactionsController (e2e) / POST', () => {
     it('Should return 201 and create transaction', async () => {
       const data = {
@@ -79,6 +70,15 @@ describe('TransactionsController (e2e)', () => {
         .post('/transactions')
         .send(data)
         .expect(400);
+    });
+  });
+
+  describe('TransactionsController (e2e) /:id GET', () => {
+    it('/ (GET)', () => {
+      return request(app.getHttpServer())
+        .get('/transactions/5')
+        .expect(200)
+        .expect('Hello World!');
     });
   });
 
