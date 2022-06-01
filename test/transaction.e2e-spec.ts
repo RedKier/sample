@@ -41,7 +41,7 @@ describe('TransactionsController (e2e)', () => {
   describe('TransactionsController (e2e) /:id PUT', () => {
     it('/ (GET)', () => {
       return request(app.getHttpServer())
-        .put('/transactions/5')
+        .patch('/transactions/5')
         .send({})
         .expect(200)
         .expect('Hello World!');

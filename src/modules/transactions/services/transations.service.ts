@@ -1,6 +1,8 @@
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { CreateTransactionDTO } from '../dtos/createTransaction.dto';
+import { UpdateTransactionDTO } from '../dtos/updateTransaction.dto';
 import { TransactionEntity } from '../entities/transaction.entity';
 
 @Injectable()
@@ -10,9 +12,9 @@ export class TransactionsService {
     private readonly transactionRepository: EntityRepository<TransactionEntity>,
   ) {}
 
-  async createTransaction() {}
+  async createTransaction(tramsactionData: CreateTransactionDTO) {}
 
-  async updateTransaction(id: string) {}
+  async updateTransaction(id: string, tramsactionData: UpdateTransactionDTO) {}
 
   async getTransactionById(id: string) {}
 
