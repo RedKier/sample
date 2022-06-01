@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import { faker } from '@faker-js/faker';
 import { bootstrap } from '../src/main';
 
 describe('TransactionsController (e2e)', () => {
@@ -17,9 +18,9 @@ describe('TransactionsController (e2e)', () => {
   describe.only('TransactionsController (e2e) / POST', () => {
     it('Should return 201 and create transaction', async () => {
       const data = {
-        amount: -5,
-        price: 6,
-        symbol: 'BTC',
+        amount: faker.datatype.number(),
+        price: faker.datatype.number(),
+        symbol: faker.random.alpha(3),
       };
 
       await request(app.getHttpServer())
@@ -37,8 +38,8 @@ describe('TransactionsController (e2e)', () => {
 
     it('Should return 400 and throw error when no symbol specified', async () => {
       const data = {
-        amount: -5,
-        price: 6,
+        amount: faker.datatype.number(),
+        price: faker.datatype.number(),
       };
 
       await request(app.getHttpServer())
@@ -49,8 +50,8 @@ describe('TransactionsController (e2e)', () => {
 
     it('Should return 400 and throw error when no amount specified', async () => {
       const data = {
-        price: 6,
-        symbol: 'BTC',
+        price: faker.datatype.number(),
+        symbol: faker.random.alpha(3),
       };
 
       await request(app.getHttpServer())
@@ -61,8 +62,8 @@ describe('TransactionsController (e2e)', () => {
 
     it('Should return 400 and throw error when no price specified', async () => {
       const data = {
-        amount: -5,
-        symbol: 'BTC',
+        amount: faker.datatype.number(),
+        symbol: faker.random.alpha(3),
       };
 
       await request(app.getHttpServer())
