@@ -7,8 +7,8 @@ export class TransactionEntity extends BaseEntity {
   symbol: string;
 
   @Property({ type: 'int' })
-  amount: string;
+  amount: number;
 
   @Property({ type: 'int' })
-  price: string;
+  price: number;
 }

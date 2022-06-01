@@ -4,8 +4,12 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { CONFIG } from './config';
 import { AppModule } from './modules/app.module';
 
-async function bootstrap(): Promise<NestExpressApplication> {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+export const bootstrap = async (): Promise<NestExpressApplication> => {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule,{
+    abortOnError: false,
+    logger: false,
+    cors: true
+  });
 
   if (CONFIG.APP.ENV === 'development') {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -30,15 +34,15 @@ async function bootstrap(): Promise<NestExpressApplication> {
     }),
   );
 
-  await app.listen(CONFIG.APP.PORT);
-
   return app;
 }
 
 if (require.main === module) {
   (async () => {
     try {
-      await bootstrap();
+      const app = await bootstrap();
+      
+      await app.listen(CONFIG.APP.PORT);
       console.log(
         `Server started sucessfuly and is listening on port ${CONFIG.APP.PORT}`,
       );

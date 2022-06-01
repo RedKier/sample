@@ -12,11 +12,22 @@ export class TransactionsService {
     private readonly transactionRepository: EntityRepository<TransactionEntity>,
   ) {}
 
-  async createTransaction(tramsactionData: CreateTransactionDTO) {}
+  async createTransaction(transactionData: CreateTransactionDTO) {
+    const transaction = this.transactionRepository.create(transactionData);
+    
+    await this.transactionRepository.persistAndFlush(transaction);
 
-  async updateTransaction(id: string, tramsactionData: UpdateTransactionDTO) {}
+    return transaction;
+  }
+
+  async updateTransaction(id: string, transactionData: UpdateTransactionDTO) {}
 
   async getTransactionById(id: string) {}
 
   async deleteTransaction(id: string) {}
+
+
+  async getTransactionByIdOrThrow(id: string) {
+    
+  }
 }

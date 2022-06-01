@@ -4,7 +4,7 @@ import { Expose } from 'class-transformer';
 export class TransactionDTO {
   @Expose()
   @ApiProperty()
-  id: string;
+  uuid: string;
 
   @Expose()
   @ApiProperty()
