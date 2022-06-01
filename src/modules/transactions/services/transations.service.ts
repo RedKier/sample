@@ -1,4 +1,5 @@
 import { EntityRepository } from '@mikro-orm/core';
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDTO } from '../dtos/createTransaction.dto';
@@ -20,11 +21,38 @@ export class TransactionsService {
     return transaction;
   }
 
-  async updateTransaction(id: string, transactionData: UpdateTransactionDTO) {}
+  async updateTransaction(id: string, transactionData: UpdateTransactionDTO) {
+    const transaction = await this.getTransactionByIdOrThrow(id);
 
-  async getTransactionById(id: string) {}
+    const editedTransaction = this.transactionRepository.create({
+      ...transaction,
+      ...transactionData,
+    });
 
-  async deleteTransaction(id: string) {}
+    await this.transactionRepository.persistAndFlush(editedTransaction);
 
-  async getTransactionByIdOrThrow(id: string) {}
+    return editedTransaction;
+  }
+
+  async getTransactionById(id: string) {
+    return await this.getTransactionByIdOrThrow(id);
+  }
+
+  async deleteTransaction(id: string) {
+    const transaction = await this.getTransactionByIdOrThrow(id);
+
+    this.transactionRepository.remove(transaction);
+
+    await this.transactionRepository.flush();
+  }
+
+  async getTransactionByIdOrThrow(id: string) {
+    const transaction = await this.transactionRepository.findOne({ uuid: id });
+
+    if (!transaction) {
+      throw new NotFoundException(`Transaction with uuid: ${id}, do not exist`);
+    }
+
+    return transaction;
+  }
 }

@@ -9,7 +9,12 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { TransformInterceptor } from '../../../modules/common/interceptors/transform.interceptor';
 import { CreateTransactionDTO } from '../dtos/createTransaction.dto';
 import { TransactionDTO } from '../dtos/transaction.dto';
@@ -37,6 +42,7 @@ export class TransactiosController {
 
   @Delete(':id')
   @HttpCode(204)
+  @ApiOperation({ description: 'Delete selected transaction' })
   @ApiNoContentResponse()
   async deleteTransaction(@Param('id') id: string) {
     await this.transactionsService.deleteTransaction(id);
