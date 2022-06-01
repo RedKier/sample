@@ -31,8 +31,8 @@ export class TransactiosController {
   @Post()
   @ApiOkResponse({ type: TransactionDTO })
   @UseInterceptors(new TransformInterceptor(TransactionDTO))
-  async createTransaction(@Body() tramsactionData: CreateTransactionDTO) {
-    return this.transactionsService.createTransaction(tramsactionData);
+  async createTransaction(@Body() transactionData: CreateTransactionDTO) {
+    return this.transactionsService.createTransaction(transactionData);
   }
 
   @Delete(':id')
