@@ -14,7 +14,7 @@ export class TransactionsService {
 
   async createTransaction(transactionData: CreateTransactionDTO) {
     const transaction = this.transactionRepository.create(transactionData);
-    
+
     await this.transactionRepository.persistAndFlush(transaction);
 
     return transaction;
@@ -26,8 +26,5 @@ export class TransactionsService {
 
   async deleteTransaction(id: string) {}
 
-
-  async getTransactionByIdOrThrow(id: string) {
-    
-  }
+  async getTransactionByIdOrThrow(id: string) {}
 }

@@ -45,7 +45,10 @@ export class TransactiosController {
   @Patch(':id')
   @ApiOkResponse({ type: TransactionDTO })
   @UseInterceptors(new TransformInterceptor(TransactionDTO))
-  async updateTransaction(@Param('id') id: string, @Body() tramsactionData: UpdateTransactionDTO) {
+  async updateTransaction(
+    @Param('id') id: string,
+    @Body() tramsactionData: UpdateTransactionDTO,
+  ) {
     return this.transactionsService.updateTransaction(id, tramsactionData);
   }
 }

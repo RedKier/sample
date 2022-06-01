@@ -5,10 +5,10 @@ import { CONFIG } from './config';
 import { AppModule } from './modules/app.module';
 
 export const bootstrap = async (): Promise<NestExpressApplication> => {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule,{
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     abortOnError: false,
     logger: false,
-    cors: true
+    cors: true,
   });
 
   if (CONFIG.APP.ENV === 'development') {
@@ -35,13 +35,13 @@ export const bootstrap = async (): Promise<NestExpressApplication> => {
   );
 
   return app;
-}
+};
 
 if (require.main === module) {
   (async () => {
     try {
       const app = await bootstrap();
-      
+
       await app.listen(CONFIG.APP.PORT);
       console.log(
         `Server started sucessfuly and is listening on port ${CONFIG.APP.PORT}`,

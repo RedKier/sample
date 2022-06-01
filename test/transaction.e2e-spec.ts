@@ -29,8 +29,8 @@ describe('TransactionsController (e2e)', () => {
       const data = {
         amount: -5,
         price: 6,
-        symbol: "BTC"
-    }
+        symbol: 'BTC',
+      };
 
       await request(app.getHttpServer())
         .post('/transactions')
@@ -49,7 +49,7 @@ describe('TransactionsController (e2e)', () => {
       const data = {
         amount: -5,
         price: 6,
-    }
+      };
 
       await request(app.getHttpServer())
         .post('/transactions')
@@ -60,8 +60,8 @@ describe('TransactionsController (e2e)', () => {
     it('Should return 400 and throw error when no amount specified', async () => {
       const data = {
         price: 6,
-        symbol: "BTC"
-    }
+        symbol: 'BTC',
+      };
 
       await request(app.getHttpServer())
         .post('/transactions')
@@ -72,8 +72,8 @@ describe('TransactionsController (e2e)', () => {
     it('Should return 400 and throw error when no price specified', async () => {
       const data = {
         amount: -5,
-        symbol: "BTC"
-    }
+        symbol: 'BTC',
+      };
 
       await request(app.getHttpServer())
         .post('/transactions')
